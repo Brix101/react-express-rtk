@@ -1,0 +1,17 @@
+{
+  "name": "react-express-rtk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter=api dev\" \"pnpm --filter=web dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
+  }
+}
