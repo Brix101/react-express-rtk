@@ -8,7 +8,8 @@
     "build": "tsc",
     "dev": "tsx watch src",
     "lint": "eslint src/ --max-warnings 0",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles",
+    "drizzle-kit": "npx drizzle-kit"
   },
   "jest": {
     "preset": "./jest-preset.mjs"
@@ -19,8 +20,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "dotenv-expand": "^12.0.1",
+    "drizzle-orm": "^0.40.0",
     "express": "^5.0.1",
     "morgan": "^1.10.0",
+    "mysql2": "^3.13.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -31,6 +34,7 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.10",
     "@types/supertest": "^6.0.2",
+    "drizzle-kit": "^0.30.5",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-import": "^2.31.0",
