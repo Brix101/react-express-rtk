@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 
-export function createServer(): Express {
+export default function createApp(): Express {
   const app = express();
 
   app.use(morgan('dev'));

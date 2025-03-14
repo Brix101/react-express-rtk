@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
 import supertest from 'supertest';
 
-import { createServer } from '../server';
+import createApp from '../utils/create-app';
 
 describe('Server', () => {
   it('health check returns 200', async () => {
-    await supertest(createServer())
+    await supertest(createApp())
       .get('/status')
       .expect(200)
       .then((res) => {

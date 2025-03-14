@@ -1,8 +1,9 @@
-import { createServer } from './server';
+import env from './env';
+import createApp from './utils/create-app';
 
-const port = process.env.PORT || 5000;
-const server = createServer();
+const port = env.PORT;
+const app = createApp();
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`);
 });
