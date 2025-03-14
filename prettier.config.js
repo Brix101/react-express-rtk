@@ -22,7 +22,7 @@ const config = {
   ],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   importOrderTypeScriptVersion: '4.4.0',
-  importOrderBuiltinModulesToTop: true, // Ensures Node.js core modules are always on top
+  importOrderBuiltinModulesToTop: true,
   importOrderCaseInsensitive: true,
   importOrderMergeDuplicateImports: true,
   importOrderCombineTypeAndValueImports: true,
