@@ -11,8 +11,8 @@ const config = {
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
   importOrder: [
     '<TYPES>',
+    '^(react/(.*)$)',
     '<BUILT_IN_MODULES>',
-    '^(react/(.*)$)$)',
     '<THIRD_PARTY_MODULES>',
     '',
     '<TYPES>^[.|..|@]',
