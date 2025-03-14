@@ -3,8 +3,9 @@ import { drizzle } from 'drizzle-orm/mysql2';
 
 import env from '../env.ts';
 
-// You can specify any property from the mysql2 connection options
-const db = drizzle({ connection: { uri: env.DATABASE_URL } });
+const db = drizzle({
+  connection: { uri: env.DATABASE_URL },
+});
 
 export type DB = typeof db;
 
