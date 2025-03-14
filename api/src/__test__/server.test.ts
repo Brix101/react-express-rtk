@@ -1,16 +1,15 @@
-import supertest from "supertest";
-import { describe, it, expect } from "@jest/globals";
-import { createServer } from "../server";
+import { describe, expect, it } from '@jest/globals';
+import supertest from 'supertest';
 
-describe("Server", () => {
-  it("health check returns 200", async () => {
+import { createServer } from '../server';
+
+describe('Server', () => {
+  it('health check returns 200', async () => {
     await supertest(createServer())
-      .get("/status")
+      .get('/status')
       .expect(200)
       .then((res) => {
         expect(res.ok).toBe(true);
       });
   });
-
-
 });
