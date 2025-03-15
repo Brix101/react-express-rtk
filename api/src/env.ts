@@ -8,6 +8,10 @@ const EnvSchema = z.object({
   PORT: z.coerce.number().default(5000),
   HOST: z.string().default('0.0.0.0'),
   DATABASE_URL: z.string().url(),
+  ACCESS_TOKEN_PUBLIC_KEY: z.string(),
+  ACCESS_TOKEN_PRIVATE_KEY: z.string(),
+  REFRESH_TOKEN_PUBLIC_KEY: z.string(),
+  REFRESH_TOKEN_PRIVATE_KEY: z.string(),
 });
 
 export type env = z.infer<typeof EnvSchema>;

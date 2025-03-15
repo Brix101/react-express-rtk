@@ -1,7 +1,7 @@
 import type { IRouter } from 'express';
 import { Router } from 'express';
 
-import { validateBody } from '../../utils/validate-resource';
+import { validateBody } from '../../utils/validation-util';
 import { signInUserHandler } from './auth-controller';
 import { signInUserSchema } from './auth.schema';
 

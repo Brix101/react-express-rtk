@@ -3,6 +3,7 @@ import type { Request, Response } from 'express';
 import type { SignInUserInput } from './auth.schema';
 import db from '../../db';
 import { verifyPassword } from '../../utils/argon-util';
+import { signJwt } from '../../utils/jwt-util';
 import { getUserByEmail } from '../users/users-service';
 
 export async function signInUserHandler(
@@ -25,7 +26,32 @@ export async function signInUserHandler(
       throw new Error('Invalid password');
     }
 
-    res.status(200).json(data);
+    const accessToken = signJwt(
+      {
+        sub: data.id,
+        email: data.email,
+      },
+      'ACCESS_TOKEN_PRIVATE_KEY',
+      {
+        expiresIn: '15m',
+      },
+    );
+
+    const refreshToken = signJwt(
+      {
+        sub: data.id,
+      },
+      'REFRESH_TOKEN_PRIVATE_KEY',
+      {
+        expiresIn: '7d',
+      },
+    );
+
+    res.json({
+      accessToken,
+      refreshToken,
+      user: data,
+    });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Something went wrong';
