@@ -1,23 +1,15 @@
 import type { Request, Response } from 'express';
 
+import type { CreateUserInput } from './users.schema';
 import db from '../../db';
-import { createUser, getUserByEmail, verifyPassword } from './users-service';
-import { createUserSchema, signInUserSchema } from './users.schema';
+import { createUser } from './users-service';
 
-export async function createUserHandler(req: Request, res: Response) {
+export async function createUserHandler(
+  req: Request<unknown, unknown, CreateUserInput>,
+  res: Response,
+) {
   try {
-    const {
-      data: payload,
-      error,
-      success,
-    } = createUserSchema.safeParse(req.body);
-
-    if (!success) {
-      res
-        .status(400)
-        .json({ message: 'Invalid request body', errors: error.issues });
-      return;
-    }
+    const payload = req.body;
 
     const result = await createUser(db, payload);
 

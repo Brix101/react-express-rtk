@@ -10,3 +10,9 @@ export const createUserSchema = z.object({
 });
 
 export type CreateUserInput = z.infer<typeof createUserSchema>;
+
+export const createUserInput = z.object({
+  body: createUserSchema,
+});
+
+export type CreateUserType = z.infer<typeof createUserInput>;
