@@ -11,9 +11,12 @@ export async function createUserHandler(
   try {
     const payload = req.body;
 
-    const result = await createUser(db, payload);
+    const userId = await createUser(db, payload);
 
-    res.status(201).json(result);
+    res.status(201).json({
+      message: 'User created successfully',
+      userId,
+    });
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).json({ message: error.message });

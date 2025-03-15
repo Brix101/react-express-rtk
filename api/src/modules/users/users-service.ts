@@ -16,11 +16,9 @@ export async function createUser(db: DB, data: CreateUserInput) {
       password: hashedPass,
     };
 
-    await db.insert(usersTable).values(payload);
+    const [result] = await db.insert(usersTable).values(payload);
 
-    return {
-      message: 'User created successfully',
-    };
+    return result.insertId;
   } catch (error) {
     let message = 'Unknown error';
 
