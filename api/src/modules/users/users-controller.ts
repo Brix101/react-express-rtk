@@ -17,6 +17,7 @@ export async function createUserHandler(
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).json({ message: error.message });
+      return;
     }
 
     res.status(500).json({ message: 'Something went wrong' });

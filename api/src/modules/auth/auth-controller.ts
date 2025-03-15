@@ -6,7 +6,7 @@ import { verifyPassword } from '../../utils/argon-util';
 import { getUserByEmail } from '../users/users-service';
 
 export async function signInUserHandler(
-  req: Request<unknown, unknown, SignInUserInput['body']>,
+  req: Request<unknown, unknown, SignInUserInput>,
   res: Response,
 ) {
   try {

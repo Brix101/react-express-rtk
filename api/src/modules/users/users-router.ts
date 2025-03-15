@@ -1,12 +1,12 @@
 import type { IRouter } from 'express';
 import { Router } from 'express';
 
-import validate from '../../utils/validate-resource';
+import { validateBody } from '../../utils/validate-resource';
 import { createUserHandler } from './users-controller';
-import { createUserInput } from './users.schema';
+import { createUserSchema } from './users.schema';
 
 const router: IRouter = Router();
 
-router.post('/', validate(createUserInput), createUserHandler);
+router.post('/', validateBody(createUserSchema), createUserHandler);
 
 export default router;
