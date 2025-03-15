@@ -1,12 +1,12 @@
 import { eq } from 'drizzle-orm';
 
-import type { DB } from '../../db';
 import type { User } from '../../db/schema';
 import type { CreateUserInput } from './users.schema';
+import db from '../../db';
 import { usersTable } from '../../db/schema';
 import { hashPassword } from '../../utils/argon-util';
 
-export async function createUser(db: DB, data: CreateUserInput) {
+export async function createUser(data: CreateUserInput) {
   try {
     const hashedPass = await hashPassword(data.password);
 
@@ -33,7 +33,7 @@ export async function createUser(db: DB, data: CreateUserInput) {
   }
 }
 
-export async function getUserByEmail(db: DB, email: string) {
+export async function getUserByEmail(email: string) {
   try {
     const users = await db
       .select()
@@ -50,7 +50,7 @@ export async function getUserByEmail(db: DB, email: string) {
   }
 }
 
-export async function getUserById(db: DB, id: User['id']) {
+export async function getUserById(id: User['id']) {
   try {
     const users = await db
       .select()

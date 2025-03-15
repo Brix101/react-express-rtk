@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express';
 
 import type { SignInUserInput } from './auth.schema';
-import db from '../../db';
 import { verifyPassword } from '../../utils/argon-util';
 import { signJwt, verifyJwt } from '../../utils/jwt-util';
 import { getUserByEmail, getUserById } from '../users/users-service';
@@ -14,7 +13,7 @@ export async function signInUserHandler(
   try {
     const payload = req.body;
 
-    const user = await getUserByEmail(db, payload.email);
+    const user = await getUserByEmail(payload.email);
 
     if (!user) {
       throw new Error('User not found');
@@ -85,7 +84,7 @@ export async function refreshTokenHandler(req: Request, res: Response) {
       throw new Error('Invalid refresh token');
     }
 
-    const user = await getUserById(db, decoded.sub);
+    const user = await getUserById(decoded.sub);
 
     if (!user) {
       throw new Error('Invalid refresh token');
@@ -119,7 +118,7 @@ export async function getMeHandler(_req: Request, res: Response) {
   try {
     const { sub } = res.locals.user as { sub: number; email: string };
 
-    const user = await getUserById(db, sub);
+    const user = await getUserById(sub);
 
     if (!user) {
       throw new Error('User not found');

@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express';
 
 import type { CreateUserInput } from './users.schema';
-import db from '../../db';
 import { createUser } from './users-service';
 
 export async function createUserHandler(
@@ -11,7 +10,7 @@ export async function createUserHandler(
   try {
     const payload = req.body;
 
-    const userId = await createUser(db, payload);
+    const userId = await createUser(payload);
 
     res.status(201).json({
       message: 'User created successfully',
