@@ -9,3 +9,9 @@ export const signInUserSchema = z.object({
 });
 
 export type SignInUserInput = z.infer<typeof signInUserSchema>;
+
+export const refreshTokenSchema = z.object({
+  refreshToken: z.string(),
+});
+
+export type RefreshTokenInput = z.infer<typeof refreshTokenSchema>;

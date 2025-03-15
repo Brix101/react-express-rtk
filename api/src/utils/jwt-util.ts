@@ -43,10 +43,7 @@ export function verifyJwt<T>(
   expired: boolean;
   decoded: T | null;
 } {
-  const verifyKey = Buffer.from(
-    env[keyName].replace(/\\n/g, '\n'),
-    'base64',
-  ).toString('ascii');
+  const verifyKey = Buffer.from(env[keyName], 'base64').toString('ascii');
 
   try {
     const decoded = jwt.verify(token, verifyKey);
