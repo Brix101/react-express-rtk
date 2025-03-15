@@ -6,6 +6,7 @@ config();
 const EnvSchema = z.object({
   NODE_ENV: z.string().default('development'),
   PORT: z.coerce.number().default(5000),
+  HOST: z.string().default('0.0.0.0'),
   DATABASE_URL: z.string().url(),
 });
 
