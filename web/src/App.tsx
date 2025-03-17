@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from './app/store';
 import { Button } from './components/ui/button';
 import {
+  authApi,
   useRefreshTokenQuery,
   useSignInMutation,
 } from './features/auth/authApi';
@@ -10,7 +11,7 @@ function App() {
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
 
-  useRefreshTokenQuery();
+  dispatch(authApi.endpoints.refreshToken.initiate());
 
   const user = useAppSelector((state) => state.auth.user);
 
