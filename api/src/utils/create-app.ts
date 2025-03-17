@@ -15,7 +15,7 @@ export default function createApp(): Express {
   app.use(cookieParser());
   app.use(deserializeUser);
 
-  app.get('/status', (_req, res) => {
+  app.get('/api/status', (_req, res) => {
     res.json({ ok: true });
   });
 
