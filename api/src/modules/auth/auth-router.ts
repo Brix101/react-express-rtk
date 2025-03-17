@@ -4,6 +4,7 @@ import { Router } from 'express';
 import { validateBody } from '../../utils/validation-util';
 import {
   getMeHandler,
+  logOutHandler,
   refreshTokenHandler,
   signInUserHandler,
 } from './auth-controller';
@@ -14,5 +15,6 @@ const router: IRouter = Router();
 router.post('/signin', validateBody(signInUserSchema), signInUserHandler);
 router.post('/refresh', refreshTokenHandler);
 router.get('/me', getMeHandler);
+router.post('/logout', logOutHandler);
 
 export default router;

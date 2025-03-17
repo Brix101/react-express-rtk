@@ -1,27 +1,43 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type AuthState = {
+import { authApi, SignInResponse, User } from './authApi';
+
+export type AuthState = {
   token: string | null;
+  user: User | null;
 };
 
 const initialState: AuthState = {
   token: null,
+  user: null,
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (
-      state,
-      { payload: { token } }: PayloadAction<{ token: string }>,
-    ) => {
-      state.token = token;
+    setCredentials: (state, { payload }: PayloadAction<SignInResponse>) => {
+      state.token = payload.accessToken;
+      state.user = payload.user;
     },
-    logOut: (state) => {
-      state.token = null;
-    },
+    logOut: () => initialState,
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authApi.endpoints.signIn.matchFulfilled,
+      (state, { payload }) => {
+        state.token = payload.accessToken;
+        state.user = payload.user;
+      },
+    );
+    builder.addMatcher(
+      authApi.endpoints.refreshToken.matchFulfilled,
+      (state, { payload }) => {
+        state.token = payload.accessToken;
+        state.user = payload.user;
+      },
+    );
   },
 });
 
-export default authSlice.reducer;
+export const { setCredentials, logOut } = authSlice.actions;

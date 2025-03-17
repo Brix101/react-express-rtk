@@ -1,30 +1,23 @@
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-
-import './App.css';
-
-import { useDispatch, useSelector } from 'react-redux';
-
-import { useGetBEStatusQuery } from './app/api';
-import { RootState } from './app/store';
+import { useAppDispatch, useAppSelector } from './app/store';
+import { Button } from './components/ui/button';
+import {
+  useRefreshTokenQuery,
+  useSignInMutation,
+} from './features/auth/authApi';
 import { increment } from './features/counter/counterSlice';
 
 function App() {
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
 
-  const { data } = useGetBEStatusQuery(null);
+  useRefreshTokenQuery();
+
+  const user = useAppSelector((state) => state.auth.user);
+
+  const [signIn] = useSignInMutation();
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => dispatch(increment())}>count is {count}</button>
@@ -32,10 +25,17 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      {JSON.stringify(data)}
+      <p className="read-the-docs">{JSON.stringify(user)}</p>
+      <Button
+        onClick={() =>
+          signIn({
+            email: 'John.doe12@example.com',
+            password: 'password',
+          })
+        }
+      >
+        SignIn
+      </Button>
     </>
   );
 }

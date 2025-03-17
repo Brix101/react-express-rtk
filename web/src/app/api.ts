@@ -6,7 +6,9 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 
-import { RootState } from './store';
+import { RootState } from '@/app/store';
+import { SignInResponse } from '@/features/auth/authApi';
+import { setCredentials } from '@/features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api',
@@ -28,6 +30,24 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
 
+  // const token = (api.getState() as RootState).auth.token;
+  //
+  // if (!token) {
+  //   const refreshResult = await baseQuery(
+  //     {
+  //       url: 'auth/refresh/',
+  //       method: 'POST',
+  //     },
+  //     api,
+  //     extraOptions,
+  //   );
+  //
+  //   if (refreshResult.data) {
+  //     const credentials = refreshResult.data as SignInResponse;
+  //     api.dispatch(setCredentials(credentials));
+  //   }
+  // }
+
   // if (result.error && result.error.status === 401) {
   //   // try to get a new token
   //   const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
@@ -44,15 +64,15 @@ const baseQueryWithReauth: BaseQueryFn<
   return result;
 };
 
-export const API = createApi({
+export const baseApi = createApi({
   reducerPath: 'baseAPI',
   baseQuery: baseQueryWithReauth,
   tagTypes: [],
   endpoints: (build) => ({
-    getBEStatus: build.query<{ ok: boolean }, unknown>({
+    getBEStatus: build.query<{ ok: boolean }, void>({
       query: () => 'status',
     }),
   }),
 });
 
-export const { useGetBEStatusQuery } = API;
+export const { useGetBEStatusQuery } = baseApi;

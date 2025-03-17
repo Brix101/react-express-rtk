@@ -72,7 +72,9 @@ export async function refreshTokenHandler(req: Request, res: Response) {
     );
 
     if (!success) {
-      throw new Error('Invalid refresh token');
+      res.json({ accessToken: null, user: null });
+      return;
+      // throw new Error('Invalid refresh token');
     }
 
     const { decoded } = verifyJwt<{ sub: number }>(
@@ -81,13 +83,17 @@ export async function refreshTokenHandler(req: Request, res: Response) {
     );
 
     if (!decoded) {
-      throw new Error('Invalid refresh token');
+      res.json({ accessToken: null, user: null });
+      return;
+      // throw new Error('Invalid refresh token');
     }
 
     const user = await getUserById(decoded.sub);
 
     if (!user) {
-      throw new Error('Invalid refresh token');
+      res.json({ accessToken: null, user: null });
+      return;
+      // throw new Error('Invalid refresh token');
     }
 
     const { password: _, ...data } = user;
@@ -138,4 +144,9 @@ export async function getMeHandler(_req: Request, res: Response) {
 
     res.status(500).json({ message });
   }
+}
+
+export function logOutHandler(_req: Request, res: Response) {
+  res.clearCookie('refreshToken');
+  res.json({ accessToken: null, user: null });
 }
