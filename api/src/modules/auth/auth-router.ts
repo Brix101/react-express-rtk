@@ -1,7 +1,6 @@
 import type { IRouter } from 'express';
 import { Router } from 'express';
 
-import { requiredUser } from '../../middleware/required-user';
 import { validateBody } from '../../utils/validation-util';
 import {
   getMeHandler,
@@ -14,6 +13,6 @@ const router: IRouter = Router();
 
 router.post('/signin', validateBody(signInUserSchema), signInUserHandler);
 router.post('/refresh', refreshTokenHandler);
-router.get('/me', requiredUser, getMeHandler);
+router.get('/me', getMeHandler);
 
 export default router;

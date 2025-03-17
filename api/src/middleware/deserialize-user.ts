@@ -18,8 +18,7 @@ function deserializeUser(req: Request, res: Response, next: NextFunction) {
 
   if (decoded) {
     res.locals.user = decoded;
-    next();
-    return;
+    return next();
   }
 
   next();

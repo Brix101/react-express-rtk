@@ -54,7 +54,6 @@ export function verifyJwt<T>(
       decoded: decoded as unknown as T,
     };
   } catch (err) {
-    console.log(err);
     const message = err instanceof Error ? err.message : 'Unknown error';
 
     return {

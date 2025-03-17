@@ -116,6 +116,11 @@ export async function refreshTokenHandler(req: Request, res: Response) {
 
 export async function getMeHandler(_req: Request, res: Response) {
   try {
+    if (!res.locals.user) {
+      res.json({ user: null });
+      return;
+    }
+
     const { sub } = res.locals.user as { sub: number; email: string };
 
     const user = await getUserById(sub);
@@ -126,7 +131,7 @@ export async function getMeHandler(_req: Request, res: Response) {
 
     const { password: _, ...data } = user;
 
-    res.json(data);
+    res.json({ user: data });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Something went wrong';
